@@ -35,7 +35,7 @@ const jsFetchCreds = "js.fetch:credentials"
 
 // RoundTrip implements the RoundTripper interface using the WHATWG Fetch API.
 func (t *Transport) RoundTrip(req *Request) (*Response, error) {
-	if useFakeNetwork() {
+	if t.Dial != nil || t.DialContext != nil || useFakeNetwork() {
 		return t.roundTrip(req)
 	}
 
